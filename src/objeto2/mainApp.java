@@ -4,6 +4,8 @@ public class mainApp {
 	
 	static int linhaChegada = 200;
 	
+
+
 	
 	
 	public static void main(String[] args) {
@@ -17,8 +19,17 @@ public class mainApp {
 			 
 			for (int i = 1; i <= NGrilo; i++) {
 			Grilo grilo = new Grilo("Grilo" + i, linhaChegada);
+			
+			grilo.start();
+			
+			
 			 
 			 }
+			
+			
 	}
+
+
+
 
 }

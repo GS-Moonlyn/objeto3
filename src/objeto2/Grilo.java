@@ -13,7 +13,6 @@ public class Grilo extends Thread {
 	public Grilo(String nome, int chegada) {
 		this.nome = nome;
 		this.chegada = chegada;
-		start();
 	}
 
 	public void run() {
