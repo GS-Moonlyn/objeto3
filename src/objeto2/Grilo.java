@@ -26,8 +26,22 @@ public class Grilo extends Thread {
 			posicaoAtual += pulo;
 			System.out.println(nome + " pulou " + pulo + "cm. " + nome + " percorreu " + posicaoAtual + "cm");
 			
+			
+		while (true) {
+			
+			try {
+				
+				Thread.sleep(100);
+				}catch (InterruptedException err) {
+					
+				
+		}
+			
 		//Contar o Número de Pulos
 			pulos++;
+			
+		}
+		
 		}
 		
 		//Exibe que o Grilo atingiu a linha de chegada
@@ -35,5 +49,11 @@ public class Grilo extends Thread {
 			System.out.println(nome + " atingiu a linha de chegada!" + " Total de pulos: " + pulos);
 		}
 		
+		
+		
 	}
+		
+	
 }
+	
+
