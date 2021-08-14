@@ -1,7 +1,9 @@
 package objeto2;
 
 public class mainApp {
+public class ThreadGroupDemo {	
 	
+}
 	static int linhaChegada = 200;
 	
 
@@ -22,7 +24,19 @@ public class mainApp {
 			
 			grilo.start();
 			
-			
+			ThreadGroup tg1 = new ThreadGroup ("G1");
+			Thread t1 = new Thread (tg1, "thread 1");
+		    Thread t2 = new Thread (tg1, "thread 2");
+		    
+		    ThreadGroup tg2 = new ThreadGroup ("G2");
+		    Thread t3 = new Thread (tg2, "thread 3");
+		    Thread t4 = new Thread (tg2, "thread 4");
+		    
+		    System.out.println("Thread Group Name: "+tg1.getName()); 
+		    System.out.println("Thread Group Name: "+tg2.getName());  
+	         tg1.list();  tg2.list();
+		    
+
 			 
 			 }
 			
