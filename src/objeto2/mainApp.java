@@ -1,49 +1,53 @@
 package objeto2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class mainApp {
 public class ThreadGroupDemo {	
 	
 }
+	//Valor que o grilo deve percorrer para chegar no final
 	static int linhaChegada = 200;
-	
-
-
-	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-				
-			Thread t = Thread.currentThread();
-			System.out.println(t.getName());
-			
-			 int NGrilo;
-			 NGrilo = 5;
+		
+		int maxGrilo = 3;
+		int nGrilo = 6;
+		//Divide o numero de grilos pelo numero maximo de grilos por grupo para determinar o numero de grupos
+        int nGrupo = ((Double) Math.ceil(Double.valueOf(nGrilo) / maxGrilo)).intValue(); // 4
+        int resto = nGrilo % maxGrilo;
+        int grilosInseridos = 0;
+
+        //Cria ThreadGroups de acordo com o valor de nGrupo
+        List<ThreadGroup> tgs = new ArrayList<>();
+        for (int i = 0; i < nGrupo; i++) {
+            tgs.add(new ThreadGroup("G" + (i + 1)));
+        }
+
+        //Verifica quantos grilos sobraram apos a divisao
+        for(int i = 0; i < nGrupo; i++) {
+            int limite;
+            if(i == nGrupo - 1 && resto != 0) {
+                limite = resto;
+            } else {
+                limite = maxGrilo;
+            }
+
+            //Adiciona os grilos a um ThreadGroup
+            for(int j = 0; j < limite; j++) {
+            	grilosInseridos++;
+                new Grilo(tgs.get(i), "Grilo " + grilosInseridos, linhaChegada).threadStart();
+            }
+        }
 			 
-			for (int i = 1; i <= NGrilo; i++) {
-			Grilo grilo = new Grilo("Grilo" + i, linhaChegada);
-			
-			grilo.start();
-			
-			ThreadGroup tg1 = new ThreadGroup ("G1");
-			Thread t1 = new Thread (tg1, "thread 1");
-		    Thread t2 = new Thread (tg1, "thread 2");
-		    
-		    ThreadGroup tg2 = new ThreadGroup ("G2");
-		    Thread t3 = new Thread (tg2, "thread 3");
-		    Thread t4 = new Thread (tg2, "thread 4");
-		    
-		    System.out.println("Thread Group Name: "+tg1.getName()); 
-		    System.out.println("Thread Group Name: "+tg2.getName());  
-	         tg1.list();  tg2.list();
-		    
-
-			 
-			 }
+	 }
 			
 			
-	}
-
-
-
-
 }
+
+
+
+
+

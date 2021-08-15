@@ -1,6 +1,6 @@
 package objeto2;
 
-public class Grilo extends Thread {
+public class Grilo {
 	
 	private String nome;
 	private int min = 10;
@@ -9,30 +9,30 @@ public class Grilo extends Thread {
 	private int chegada;
 	private int pulos;
 	private int pulosInicial;
+	private ThreadGroup tg;
 	
 	//Construtor
-	public Grilo(String nome, int chegada) {
+	public Grilo(ThreadGroup tg, String nome, int chegada) {
+		this.tg = tg;
 		this.nome = nome;
 		this.chegada = chegada;
 	}
 
-	public void run() {
-		//Exibe a Thread atual 
-		//Thread t = Thread.currentThread();
-		//System.out.println(t.getName());
+	private void run() {
 		
 		//Log de distancia percorrida pelo Grilo
 		while(posicaoAtual < chegada) {
 			int pulo = (int)Math.floor(Math.random()*(max-min+1)+min);
 			posicaoAtual += pulo;
-			System.out.println(nome + " pulou " + pulo + "cm. " + nome + " percorreu " + posicaoAtual + "cm.");
+			System.out.println(tg.getName() + ": " + nome + " pulou " + pulo + "cm. " + nome + " percorreu " + posicaoAtual + "cm.");
 			
 		//Contar o Numero de Pulos
 			pulos++;
 			
+		//Faz com que a thread do grilo durma apos um pulo
 			if(pulos != pulosInicial) {
 				try {
-					sleep(1000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -51,6 +51,11 @@ public class Grilo extends Thread {
 		
 		
 		
+	}
+	
+	//Function de iniciar a thread
+	public void threadStart() {
+		new Thread(tg, () -> run(), nome).start();
 	}
 		
 	
