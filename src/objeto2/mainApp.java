@@ -15,10 +15,10 @@ public class ThreadGroupDemo {
 		// TODO Auto-generated method stub
 		
 		//Semaphore
-		Semaphore semaphore = new Semaphore(2);
+		Semaphore semaphore = new Semaphore(1);
 		
 		int maxGrilo = 3;
-		int nGrilo = 6;
+		int nGrilo = 7;
 	
 		//Divide o numero de grilos pelo numero maximo de grilos por grupo para determinar o numero de grupos
         int nGrupo = ((Double) Math.ceil(Double.valueOf(nGrilo) / maxGrilo)).intValue(); // 4
@@ -48,8 +48,7 @@ public class ThreadGroupDemo {
             
             
         }
-        
-        tgs.get(0);
+    
 			 
 	 }
 			

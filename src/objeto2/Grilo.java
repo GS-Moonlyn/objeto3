@@ -11,7 +11,7 @@ public class Grilo {
 	private int chegada;
 	private int pulos;
 	private int pulosInicial;
-	private int i = 1;
+	private int i = 0;
 	private ThreadGroup tg;
 	private Semaphore semaphore;
 	
@@ -28,23 +28,17 @@ public class Grilo {
 		//
 		if(tg.getName().equals("G" + (i+1))) {
 			
-			System.out.println("Preparando...");
+			System.out.println(tg.getName()+ ": " + "preparando...");
 			
 			try {
 				
 				//Permissao
-				System.out.println(tg.getName() + " está esperando para a permissão");
+				System.out.println(tg.getName() + " esta esperando para a permissao");
 				
 				//Adquirindo
 				semaphore.acquire();
-				System.out.println(tg.getName() + " dá a largada!");
+				System.out.println(tg.getName() + " da a largada!");
 				
-				for(int i=0; i < 5; i++) {
-					
-					Shared.count++;
-					System.out.println(tg.getName() + ":" + Shared.count);
-					
-				}
 			}
 			
 			catch (InterruptedException e) {
