@@ -2,6 +2,7 @@ package objeto2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 public class mainApp {
 public class ThreadGroupDemo {	
@@ -13,8 +14,12 @@ public class ThreadGroupDemo {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		//Semaphore
+		Semaphore semaphore = new Semaphore(2);
+		
 		int maxGrilo = 3;
 		int nGrilo = 6;
+	
 		//Divide o numero de grilos pelo numero maximo de grilos por grupo para determinar o numero de grupos
         int nGrupo = ((Double) Math.ceil(Double.valueOf(nGrilo) / maxGrilo)).intValue(); // 4
         int resto = nGrilo % maxGrilo;
@@ -38,9 +43,13 @@ public class ThreadGroupDemo {
             //Adiciona os grilos a um ThreadGroup
             for(int j = 0; j < limite; j++) {
             	grilosInseridos++;
-                new Grilo(tgs.get(i), "Grilo " + grilosInseridos, linhaChegada).threadStart();
+                new Grilo(tgs.get(i), "Grilo " + grilosInseridos, linhaChegada, semaphore).threadStart();
             }
+            
+            
         }
+        
+        tgs.get(0);
 			 
 	 }
 			

@@ -1,5 +1,7 @@
 package objeto2;
 
+import java.util.concurrent.Semaphore;
+
 public class Grilo {
 	
 	private String nome;
@@ -9,16 +11,58 @@ public class Grilo {
 	private int chegada;
 	private int pulos;
 	private int pulosInicial;
+	private int i = 1;
 	private ThreadGroup tg;
+	private Semaphore semaphore;
 	
 	//Construtor
-	public Grilo(ThreadGroup tg, String nome, int chegada) {
+	public Grilo(ThreadGroup tg, String nome, int chegada, Semaphore semaphore) {
 		this.tg = tg;
 		this.nome = nome;
 		this.chegada = chegada;
+		this.semaphore = semaphore;
 	}
 
 	private void run() {
+		
+		//
+		if(tg.getName().equals("G" + (i+1))) {
+			
+			System.out.println("Preparando...");
+			
+			try {
+				
+				//Permissao
+				System.out.println(tg.getName() + " está esperando para a permissão");
+				
+				//Adquirindo
+				semaphore.acquire();
+				System.out.println(tg.getName() + " dá a largada!");
+				
+				for(int i=0; i < 5; i++) {
+					
+					Shared.count++;
+					System.out.println(tg.getName() + ":" + Shared.count);
+					
+				}
+			}
+			
+			catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+			
+			//Permissao
+			System.out.println("Grupo" + tg.getName() + "passa a vez!");
+			semaphore.release();
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		//Log de distancia percorrida pelo Grilo
 		while(posicaoAtual < chegada) {
