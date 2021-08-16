@@ -26,18 +26,17 @@ public class Grilo {
 	private void run() {
 		
 		//
-		if(tg.getName().equals("G" + (i+1))) {
 			
-			System.out.println(tg.getName()+ ": " + "preparando...");
+			System.out.println(nome + " " + tg.getName() + ": " + "preparando...");
 			
 			try {
 				
 				//Permissao
-				System.out.println(tg.getName() + " esta esperando para a permissao");
+				System.out.println(nome + " " + tg.getName() + " esta esperando para a permissao");
 				
 				//Adquirindo
 				semaphore.acquire();
-				System.out.println(tg.getName() + " da a largada!");
+				System.out.println(nome + " " + tg.getName() + " da a largada!");
 				
 			}
 			
@@ -46,17 +45,6 @@ public class Grilo {
 				e.printStackTrace();
 			}
 			
-			//Permissao
-			System.out.println("Grupo" + tg.getName() + "passa a vez!");
-			semaphore.release();
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		
 		//Log de distancia percorrida pelo Grilo
 		while(posicaoAtual < chegada) {
@@ -69,14 +57,19 @@ public class Grilo {
 			
 		//Faz com que a thread do grilo durma apos um pulo
 			if(pulos != pulosInicial) {
+				
+				pulosInicial = pulos;
+				
+				//Release
+				System.out.println(nome + " " + tg.getName() +  " " + "passa a vez!");
+				semaphore.release();
+				
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(10000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println(nome + " ficou com preg!");
-				pulosInicial = pulos;
 			}
 			
 		}
@@ -85,6 +78,8 @@ public class Grilo {
 		//Exibe que o Grilo atingiu a linha de chegada
 		if(posicaoAtual >= chegada) {
 			System.out.println(nome + " atingiu a linha de chegada!" + " Total de pulos: " + pulos);
+			
+			
 		}
 		
 		
